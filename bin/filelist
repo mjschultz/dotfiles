@@ -1,0 +1,12 @@
+#!/usr/bin/perl
+$argc = $#ARGV;
+
+open (OUT, ">$ARGV[$argc]");
+
+for ($i = 0; $i < $argc; $i++) {
+	open(IN, "$ARGV[$i]");
+	print OUT "\n-----> $ARGV[$i] <-----\n";
+	while (<IN>) {
+		print OUT $_;
+	}
+}

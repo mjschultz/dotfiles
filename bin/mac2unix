@@ -1,0 +1,1 @@
+perl -e 'while (<STDIN>) { $temp = $_; chomp($temp); $temp =~ s/\x0D/\n/gi; print $temp . "\n"; }'
