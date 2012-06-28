@@ -1,0 +1,5 @@
+export LANG="en_US.UTF-8"
+export EDITOR="vim"
+export VISUAL="vim"
+export FIGNORE=".o:.a"
+export HISTIGNORE="&:[bf]g:exit"

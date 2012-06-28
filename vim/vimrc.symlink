@@ -1,85 +1,96 @@
-set noswapfile
+" .vimrc - settings for vi improved
+" Maintainer: Michael Schultz
+" $Id: vimrc 24 2009-01-10 19:32:54Z mjschultz $
 
-" ----------------------------------------------------------------------------
-"  Text Formatting
-" ----------------------------------------------------------------------------
+" General Settings
+set nocompatible      " no vi defaults, use the more modern vim settings
+set enc=utf-8         " use utf-8 encoding, where available
+set smartcase         " ignore case if search term is all lower-case
+set backspace=2       " more powerful backspacing
 
-set autoindent             " automatic indent new lines
-set smartindent            " be smart about it
-inoremap # X<BS>#
-set nowrap                 " do not wrap lines
-set softtabstop=2          " yep, two
-set shiftwidth=2           " ..
-set tabstop=4
-set expandtab              " expand tabs to spaces
-set nosmarttab             " fuck tabs
-set formatoptions+=n       " support for numbered/bullet lists
-"set textwidth=80           " wrap at 80 chars by default
-set virtualedit=block      " allow virtual edit in visual block ..
+" Display Settings
+set tw=75             " set textwidth = 75 columns
+set linebreak         " don't break in the middle of words
+set display+=lastline " show paragraphs, even if they go off screen
+set fo+=r             " insert comment leader on enter
+set ruler             " display line,col, when there is room
+set showmode          " display mode ( -- INSERT --, etc.)
 
-" ----------------------------------------------------------------------------
-"  Remapping
-" ----------------------------------------------------------------------------
+if has("syntax")
+	syntax on         " turn on syntax highlighting
+endif
 
-" lead with ,
-let mapleader = ","
+" Indentation and Tab Settings
+set tabstop=4         " set tabstop to 4 spaces
+set shiftwidth=4      " make >> shift 4, not 8
+set shiftround        " round to nearest 4, don't just move 4
+set expandtab         " tabs are spaces
 
-" exit to normal mode with 'jj'
-inoremap jj <ESC>
+set modeline          " parse file specific modeline settings
 
+set autoindent        " automatically indent to level of previous line
+set cindent           " uses some brains to change indent level
 
-" reflow paragraph with Q in normal and visual mode
-nnoremap Q gqap
-vnoremap Q gq
+" Enable filetype detection
+filetype plugin indent on
 
-" sane movement with wrap turned on
-nnoremap j gj
-nnoremap k gk
-vnoremap j gj
-vnoremap k gk
-nnoremap <Down> gj
-nnoremap <Up> gk
-vnoremap <Down> gj
-vnoremap <Up> gk
-inoremap <Down> <C-o>gj
-inoremap <Up> <C-o>gk
+" Return cursor to previous position when file opened
+au BufReadPost *
+    \ if ! exists("g:leave_my_cursor_position_alone") |
+    \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+    \ exe "normal g'\"" |
+    \ endif |
+    \ endif
 
-" ----------------------------------------------------------------------------
-"  UI
-" ----------------------------------------------------------------------------
+" don't write backups when called by `crontab -e`
+au BufWrite /private/tmp/crontab.* set nowritebackup
+" dont' write backups when called by `chpass`
+au BufWrite /private/etc/pw.* set nowritebackup
+" enable spell check by default on some filetypes
+au BufNewFile,BufRead *.txt,*.tex,*.html,svn-commit.tmp,*mutt* set spell
 
-set ruler                  " show the cursor position all the time
-set noshowcmd              " don't display incomplete commands
-set nolazyredraw           " turn off lazy redraw
-set number                 " line numbers
-set wildmenu               " turn on wild menu
-set wildmode=list:longest,full
-set ch=2                   " command line height
-set backspace=2            " allow backspacing over everything in insert mode
-set whichwrap+=<,>,h,l,[,] " backspace and cursor keys wrap to
-set shortmess=filtIoOA     " shorten messages
-set report=0               " tell us about changes
-set nostartofline          " don't jump to the start of line when scrolling
+" source Xinu specific settings
+au BufNewFile,BufRead ~/xinu/* source ~/.files/vim/xinu.vim
 
+" source cscope definitions 
+source ~/.files/vim/cscope.vim
 
-" ----------------------------------------------------------------------------
-" Visual Cues
-" ----------------------------------------------------------------------------
+" set a default color scheme
+colorscheme koehler
 
-set showmatch              " brackets/braces that is
-set mat=5                  " duration to show matching brace (1/10 sec)
-set incsearch              " do incremental searching
-set laststatus=2           " always show the status line
-set ignorecase             " ignore case when searching
-set nohlsearch             " don't highlight searches
-set visualbell             " shut the fuck up
+" source some color settings
+source ~/.files/vim/colors.vim
 
+" some mappings
+" make current line an h4
+map h4 :s/^[A-z0-9"].*$/<h4>&<\/h4>/g<CR>
 
-" ---------------------------------------------------------------------------
-"  Strip all trailing whitespace in file
-" ---------------------------------------------------------------------------
+" wrap everything in paragraph tags
+map p :%s/^[A-z0-9"].*$/<p>&<\/p>/g<CR>
 
-function! StripWhitespace ()
-    exec ':%s/ \+$//gc'
-endfunction
-map ,s :call StripWhitespace ()<CR>
+" toggle hidden chars
+map <silent> <F2> :set invlist<CR>
+imap <silent> <F2> <C-O>:set invlist<CR>
+
+" toggle search highlighting
+map <silent> <F3> :set invhlsearch<CR>
+imap <silent> <F3> <C-O>:set invhlsearch<CR>
+
+" toggle paste to disable formatting temporarily
+map <silent> <F4> :set invpaste<CR>
+imap <silent> <F4> <C-O>:set invpaste<CR>
+set pastetoggle=<F4>
+
+" reload ~/.vimrc
+map <silent> <F5> :source ~/.vimrc<CR>
+imap <silent> <F5> <Esc>:source ~/.vimrc<CR>i
+
+" comment/uncomment block of code
+map <silent> /c :s/^/\/\//<CR>
+map <silent> /d :s/^\/\///<CR>
+
+" spelling settings
+map <silent> <F7> :setlocal spell spelllang=en_us<CR>
+imap <silent> <F7> <C-O>:setlocal spell spelllang=en_us<CR>
+map <silent> <F8> :setlocal nospell<CR>
+imap <silent> <F8> <C-O>:setlocal nospell<CR>
