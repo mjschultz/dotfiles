@@ -1,0 +1,22 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    source /etc/bashrc
+fi
+
+# Shortcut for dotfiles to get path
+export DOTPATH=$HOME/.dotfiles
+
+# Source all .bash files in this repo
+for config_file in $DOTPATH/*/*.bash ; do
+    source $config_file
+done
+
+# Use $HOME/.localrc for non-repo (secret) stuff
+[ -f $HOME/.localrc ] && source $HOME/.localrc
+
+# Load up any autocompletion functions
+for completion_file in $DOTPATH/*/*completion.sh ; do
+    source $completion_file
+done
