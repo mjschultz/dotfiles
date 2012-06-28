@@ -1,2 +1,5 @@
-PS1='[\m:\u@\h \W$(__git_ps1 " (%s)")]\$ '
-
+if [ -n $SSH_CONNECTION ] ; then
+    PS1='[\u $(__git_ps1 "%s:")\W]\$ '
+else
+    PS1='[\u@\h $(__git_ps1 "%s:")\W]\$ '
+fi

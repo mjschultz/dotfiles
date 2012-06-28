@@ -1,0 +1,8 @@
+GNOME_OPEN=$(which gnome-open)
+EVINCE_OPEN=$(which evince)
+
+if [ -n "$GNOME_OPEN" ] ; then
+    alias open=$GNOME_OPEN
+elif [ -n "$EVINCE_OPEN" ] ; then
+    alias open=$EVINCE_OPEN
+fi
