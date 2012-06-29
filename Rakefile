@@ -32,7 +32,9 @@ task :install do
     end
     `ln -s "$PWD/#{linkable}" "#{target}"`
   end
+end
 
+task :fix do
   # ssh needs specific permissions, set them
   `chmod go-w ssh/ ssh/ssh.symlink/ ssh/ssh.symlink/*`
 end
@@ -57,4 +59,4 @@ task :uninstall do
   end
 end
 
-task :default => 'install'
+task :default => ['install', 'fix']
