@@ -1,0 +1,154 @@
+#!/bin/sh -u
+#
+# Bang style ssh for hopping through firewalls etc.
+# Sshes from host to host to reach destination.
+# Assorted other minor features.
+#	- Cameron Simpson <cs@zip.com.au> 28may2004
+#
+
+: ${SSHTO_OPTS:=''}
+
+trace=  ##set-x
+sshopts=
+lsshopts=
+mycfg=$HOME/.ssh/config
+[ -s "$mycfg" -a -r "$mycfg" ] && lsshopts="$lsshopts -F \"\$mycfg\""
+topt=
+fopt=
+presh=
+env_presh=': set -vx
+           exec 3<&0 4>&1 </dev/null >&2
+	   [ -s /etc/profile ] && . /etc/profile
+           [ -s $HOME/.profile ] && . $HOME/.profile
+	   wSHELL=
+	   for sh in zsh bash ksh sh $SHELL
+	   do
+	     for bin in /bin /usr/bin /usr/local/bin
+	     do
+	       case "$sh" in /*) binsh=$sh ;; *) binsh=$bin/$sh ;; esac
+	       [ -x "$binsh" ] && { wSHELL=$binsh; break; }
+	     done
+	     [ -n "$wSHELL" ] && break
+	   done
+	   [ -n "$wSHELL" ] && SHELL=$wSHELL
+	   export SHELL
+           tput colors >/dev/null 2>&1 || { TERM=vt100; export TERM; }
+	   [ -s /opt/css/env.sh ] && . /opt/css/env.sh
+           exec <&3 3<&- >&4 4>&-
+	  '
+
+cmd=`basename "$0"` || cmd=$0
+usage="Usage: $cmd [ssh-options...] [sshcfg=value...] [user@]host[ [user2@]host2...] [!command ...]
+	ssh-options...	Passed to all ssh commands.
+	sshcfg=value	Transmuted to -o 'sshcfg value' and added to ssh-option.
+	-z, +z		Pass -o Compression yes/no to ssh.
+	-E		Run login setup at far end."
+
+set -- $SSHTO_OPTS ${1+"$@"}
+
+badopts=
+
+host=
+havehost=
+sshcmd=
+first=1
+while [ $# -gt 0 ] ; do
+    ##echo "sshto: *=[$*]" >&2
+    case $1 in
+        -t)	topt=-t ;;
+        +t)	topt= ;;
+        -f) fopt=-f ;;
+        -E)	presh=$env_presh ;;
+        -[aAgknNqsTvxXYC1246])
+            sshopts="$sshopts $1"
+            ;;
+        -[bceiIlmopFLRD])
+            sshopts="$sshopts $1 "`shqstr "$2"`
+            shift
+            ;;
+        -[bceiIlmopFLRD]?*)
+            sshopts=$sshopts\ `shqstr "$1"`
+            ;;
+        -z)	sshopts="$sshopts -o 'Compression yes'" ;;
+        +z)	sshopts="$sshopts -o 'Compression no'" ;;
+        [a-zA-Z]*=?*)
+            [ $havehost ] && break # ignore "settings" after hosts 
+            cfg=`expr "$1" : '\([^=]*\)=.*'`
+            val=`expr "$1" : '[^=]*=\(.*\)'`
+            sshopts="$sshopts -o "`shqstr "$cfg $val"`
+            ;;
+        --)	shift; break ;;
+        -?*) echo "$cmd: unrecognised option: $1" >&2; badopts=1 ;;
+        !*)
+            sshcmd="${*/!}"
+            break
+            ;;
+        *)
+            host="$host $1"
+            havehost=1
+        ;;
+    esac
+    shift
+done
+
+if [ -z "$havehost" ]
+then
+  if [ $# = 0 ]
+  then
+    echo "$cmd: missing host" >&2
+    badopts=1
+  else
+    host=$1; shift
+  fi
+fi
+
+[ $badopts ] && { echo "$usage" >&2; exit 2; }
+
+[ -t 0 -a -t 1 ] && topt=-t
+
+[ $# = 0 ] && set -- '[ -n "$SHELL" -a -x "$SHELL" ] || SHELL=/bin/sh; exec "$SHELL"'
+
+sshargv="$sshopts $topt"
+sshcmd=$presh$sshcmd
+
+split_target()
+{
+  set -- $1
+  _st_pcmd=
+  if [ $# -gt 1 ]
+  then
+    _st_sep=
+    while [ $# -gt 1 ]
+    do
+      _st_pcmd="$_st_pcmd${_st_sep}ssh -A -T -x -e none -o batchmode=yes -o compression=no $1"
+      shift
+      _st_sep=" "
+    done
+    _st_pcmd="$_st_pcmd exec nc %h %p"
+  fi
+  printf "%s %s\n" "$1" "$_st_pcmd"
+}
+
+rev_host() {
+    set -- $1
+    rpath="$1"
+    shift
+    while [ $# -gt 0 ] ; do
+        rpath="$1 via $rpath"
+        shift
+    done
+    printf "%s" "$rpath"
+}
+
+hostpath="$host"
+set -- `split_target "$hostpath"`
+host=$1
+shift
+if [ $# -gt 0 ]
+then
+  lsshopts="$lsshopts -o 'ProxyCommand $*' -o StrictHostKeyChecking=no"
+fi
+
+##set -x
+echo "Connecting to "`rev_host "$hostpath"`
+eval "exec $trace ssh $fopt $lsshopts $sshargv $host \"\$sshcmd\""

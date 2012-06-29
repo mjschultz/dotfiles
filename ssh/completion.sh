@@ -188,7 +188,7 @@ _ssh()
 
     return 0
 }
-shopt -u hostcomplete && complete -F _ssh ssh slogin autossh
+shopt -u hostcomplete && complete -F _ssh ssh slogin autossh sshto
 
 # sftp(1) completion
 #

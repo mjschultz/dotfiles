@@ -18,7 +18,7 @@ Host *.seas.wustl.edu *.seas
 
 Host mawdryn.seas.wustl.edu
     ForwardAgent yes
-    ProxyCommand ssh schultzm@ssh.seas.wustl.edu nc 172.16.20.191 22
+    ProxyCommand ssh -At ssh.seas.wustl.edu "ssh -At mawdryn.seas"
 
 Host *.cec.wustl.edu *.cec
     User mjs6
