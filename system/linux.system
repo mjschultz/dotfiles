@@ -1,5 +1,5 @@
-GNOME_OPEN=$(which gnome-open)
-EVINCE_OPEN=$(which evince)
+GNOME_OPEN=$(which gnome-open 2> /dev/null)
+EVINCE_OPEN=$(which evince 2> /dev/null)
 
 if [ -n "$GNOME_OPEN" ] ; then
     alias open=$GNOME_OPEN
