@@ -1,0 +1,15 @@
+[user]
+        name = Michael J. Schultz
+        email = mjschultz@gmail.com
+        signingkey = "BB7BCC6E"
+[alias]
+        co      = checkout
+[color]
+        diff = auto
+        status = auto
+        branch = auto
+[core]
+        excludesfile = ~/.gitignore
+        editor = vim
+[github]
+        user = mjschultz
