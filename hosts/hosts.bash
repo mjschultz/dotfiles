@@ -4,14 +4,14 @@
 
 # I've never seen this command work, but give it a shot
 DOMAINNAME=$(domainname)
+HOSTNAME=$(hostname)
 
 # Maybe the hostname has the domain name in it...
 if [ -n "$DOMAINNAME" -o "$DOMAINNAME" == "(none)" ] ; then
-    DOMAINNAME=$(hostname#*.)
+    DOMAINNAME=${HOSTNAME#*.}
 fi
 
 # Hostname is easy to pickup, but strip the domainname
-HOSTNAME=$(hostname)
 HOSTNAME=${HOSTNAME/.*}
 
 [ -f "$DOMAINNAME.domain" ] && source "$DOMAINNAME.domain"

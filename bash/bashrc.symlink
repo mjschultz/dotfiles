@@ -17,8 +17,13 @@ function prepend_path {
     [ -d $1 ] && PATH=$1:$PATH
 }
 
+function debug {
+    [ -f $DOTPATH/debug ] && echo $1
+}
+
 # Source all .bash files in this repo
 for config_file in $DOTPATH/*/*.bash ; do
+    debug $config_file
     source $config_file
 done
 
