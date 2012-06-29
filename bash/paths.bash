@@ -1,5 +1,6 @@
 # Set some sensible PATHs
 prepend_path "/usr/local/bin"
+prepend_path "$DOTPATH/bin"
 prepend_path "$HOME/bin"
 append_path "/usr/local/sbin"
 append_path "/usr/sbin"
