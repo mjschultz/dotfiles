@@ -4,6 +4,7 @@
         signingkey = "BB7BCC6E"
 [alias]
         co      = checkout
+	st = status
 [color]
         diff = auto
         status = auto
