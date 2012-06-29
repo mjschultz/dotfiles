@@ -6,6 +6,11 @@ Host mulug.mscs.mu.edu
 Host *.mscs.mu.edu
     User mschul
 
+# Ignore host key changes for local virtual hosts
+Host 192.168.56.*
+    UserKnownHostsFile /dev/null
+    StrictHostKeyChecking no
+
 Host xnerd.net
     IdentityFile ~/.ssh/id_rsa
 
