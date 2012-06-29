@@ -1,0 +1,24 @@
+! Some xterm configuration
+xterm*imLocale: en_US.UTF-8
+xterm*urlLauncher: firefox
+xterm*perl-ext-common: default,matcher
+xterm*scrollBar:  false
+xterm*saveLines:  65535
+! URxvt*utmpInhibit: true
+xterm*geometry:   80x90
+xterm*background: black
+xterm*foreground: gold
+xterm*font: fixed
+
+! Special xterms
+!URxvt-big*geometry: 80x50
+!URxvt-big*font: 10x20
+
+xterm-tiny*scrollBar:   false
+xterm-tiny*saveLines:   65535
+xterm-tiny*background:  black
+xterm-tiny*foreground:  gold
+xterm-tiny*geometry:    80x124
+xterm-tiny*font:        5x8
+xterm-tiny*messages:    true
+xterm-tiny*utmpInhibit: false

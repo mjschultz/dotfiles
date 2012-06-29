@@ -1,0 +1,26 @@
+# SSH config, some host specific configuration
+
+Host mulug.mscs.mu.edu
+	User mjschultz
+
+Host *.mscs.mu.edu
+	User mschul
+
+Host xnerd.net
+	IdentityFile ~/.ssh/id_rsa
+
+Host *.seas.wustl.edu *.seas
+    User schultzm
+
+Host mawdryn.seas
+    ForwardAgent yes
+    ProxyCommand ssh schultzm@ssh.seas.wustl.edu nc 172.16.20.191 22
+
+Host *.cec.wustl.edu *.cec
+	User mjs6
+
+Host onl-rli
+    HostName onl.arl.wustl.edu
+    LocalForward localhost:7070 onlsrv:7070
+    ControlMaster yes
+    ControlPath /tmp/onl-rli.sock

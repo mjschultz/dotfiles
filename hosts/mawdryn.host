@@ -1,0 +1,6 @@
+alias ssh="( ssh-add -l > /dev/null || ssh-add ) && ssh"
+alias ls='ls -FG'
+alias rli='ssh -fN onl-rli ; ( cd ~/Projects/research/utils/onl ; java -jar RLI.jar ) ; ssh -S /tmp/onl-rli.sock -O exit onl.wustl.edu'
+
+export PATH=/usr/texbin:/opt/local/bin:/opt/local/sbin:$PATH
+export MANPATH=/opt/local/share/man:$MANPATH
