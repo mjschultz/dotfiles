@@ -1,6 +1,4 @@
-" .vimrc - settings for vi improved
-" Maintainer: Michael Schultz
-" $Id: vimrc 24 2009-01-10 19:32:54Z mjschultz $
+" .vimrc - settings for vimproved
 
 " General Settings
 set nocompatible      " no vi defaults, use the more modern vim settings
