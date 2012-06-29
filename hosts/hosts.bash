@@ -14,5 +14,6 @@ fi
 # Hostname is easy to pickup, but strip the domainname
 HOSTNAME=${HOSTNAME/.*}
 
-[ -f "$DOMAINNAME.domain" ] && source "$DOMAINNAME.domain"
-[ -f "$HOSTNAME.host" ] && source "$HOSTNAME.host"
+DIR="$DOTPATH/hosts"
+[ -f "$DIR/$DOMAINNAME.domain" ] && source "$DIR/$DOMAINNAME.domain"
+[ -f "$DIR/$HOSTNAME.host" ] && source "$DIR/$HOSTNAME.host"

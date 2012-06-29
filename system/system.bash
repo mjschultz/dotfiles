@@ -1,2 +1,3 @@
 SYSTEM=$(uname -s | tr '[A-Z]' '[a-z]')
-[ -f $SYSTEM ] && source $SYSTEM
+DIR="$DOTPATH/system"
+[ -f "$DIR/$SYSTEM.system" ] && source "$DIR/$SYSTEM.system"
