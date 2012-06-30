@@ -1,6 +1,5 @@
 alias rli='ssh -fN onl-rli ; ( cd ~/Projects/research/utils/onl ; java -jar RLI.jar ) ; ssh -S /tmp/onl-rli.sock -O exit onl.wustl.edu'
 alias rli72='ssh -fN onl-rli ; ( cd ~/Projects/research/utils/onl ; java -jar RLI_v7.2.jar ) ; ssh -S /tmp/onl-rli.sock -O exit onl.wustl.edu'
-unalias open
 
 prepend_path /usr/local/bin
 prepend_path /Volumes/local/usr-local/bin
