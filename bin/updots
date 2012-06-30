@@ -1,8 +1,13 @@
 #!/bin/sh
+: "${mypath:=$0}"
 
-DIR=$(dirname $(readlink -f $0))
+if [[ $0 != /* ]]; then
+    mypath=$PWD/${0#./}
+fi
 
-pushd $DIR/../
+MYDIR=$(dirname $mypath)
+
+pushd $MYDIR/../
   git pull
   rake fix
 popd
