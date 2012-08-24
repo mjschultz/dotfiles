@@ -6,3 +6,11 @@ prepend_path /Volumes/local/usr-local/bin
 prepend_path /Volumes/local/usr-local/sbin
 
 export MANPATH=/usr/local/share/man:$MANPATH
+
+# Some Homebrew settings
+export HOMEBREW_TEMP=/Volumes/local/tmp
+
+# Temporary fix to the 'sudo' problem at
+# https://discussions.apple.com/thread/4143805
+unset DYLD_LIBRARY_PATH
+unset LD_LIBRARY_PATH

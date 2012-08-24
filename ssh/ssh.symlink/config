@@ -33,3 +33,7 @@ Host onl-rli
     LocalForward localhost:7070 onlsrv:7070
     ControlMaster yes
     ControlPath /tmp/onl-rli.sock
+
+Host *.obsrvbl.com
+    User ubuntu
+    IdentityFile ~/.ssh/pcrowley_keypair.pem
