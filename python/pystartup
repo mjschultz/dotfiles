@@ -22,6 +22,7 @@ def save_history(hist_path=hist_path):
 if os.path.exists(hist_path):
     readline.read_history_file(hist_path)
 
+readline.parse_and_bind('tab: complete')
+
 atexit.register(save_history)
 del os, atexit, readline, rlcompleter, save_history, hist_path
-
