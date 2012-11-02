@@ -36,4 +36,4 @@ Host onl-rli
 
 Host *.obsrvbl.com
     User ubuntu
-    IdentityFile ~/.ssh/pcrowley_keypair.pem
+    UserKnownHostsFile ~/.ssh/known_hosts2
