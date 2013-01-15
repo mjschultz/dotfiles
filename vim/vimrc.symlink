@@ -48,7 +48,7 @@ au BufWrite /private/etc/pw.* set nowritebackup
 au BufNewFile,BufRead *.txt,*.tex,*.html,svn-commit.tmp,*mutt* set spell
 
 " source cscope definitions 
-source cscope.vim
+source ~/.vim/cscope.vim
 
 " set a default color scheme
 colorscheme koehler
