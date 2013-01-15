@@ -47,17 +47,11 @@ au BufWrite /private/etc/pw.* set nowritebackup
 " enable spell check by default on some filetypes
 au BufNewFile,BufRead *.txt,*.tex,*.html,svn-commit.tmp,*mutt* set spell
 
-" source Xinu specific settings
-au BufNewFile,BufRead ~/xinu/* source ~/.files/vim/xinu.vim
-
 " source cscope definitions 
-source ~/.files/vim/cscope.vim
+source cscope.vim
 
 " set a default color scheme
 colorscheme koehler
-
-" source some color settings
-source ~/.files/vim/colors.vim
 
 " some mappings
 " make current line an h4
