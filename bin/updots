@@ -1,13 +1,8 @@
-#!/bin/sh
-: "${mypath:=$0}"
+#!/bin/bash
 
-if [[ $0 != /* ]]; then
-    mypath=$PWD/${0#./}
-fi
+script_dir="$( cd "$( dirname "$0" )" && pwd )"
 
-MYDIR=$(dirname $mypath)
-
-pushd $MYDIR/../
+pushd $script_dir/../
   git pull
   rake fix
 popd
