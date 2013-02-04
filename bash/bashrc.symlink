@@ -35,7 +35,9 @@ function clean_path {
         VAR=$1
     fi
     VALUE=$(echo ${!VAR} | sed 's/^://' | sed 's/:$//')
-    printf -v $VAR $VALUE
+    if [ ! -z "$VALUE" ] ; then
+        printf -v $VAR $VALUE
+    fi
 }
 
 function debug {
