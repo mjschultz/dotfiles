@@ -1,10 +1,11 @@
 #!/bin/bash
 # Load a set of AWS keys
 DEFAULT="mjschultz"
+KEYPATH="$DOTPATH/aws/keys.private"
 
-if [ "${BASH_VERSION/.*/}" -ge "4" ] ; then
+if [ "${BASH_VERSION/.*/}" -ge "4" -a -f "$KEYPATH" ] ; then
     declare -A AWS_ACCESS_KEYS AWS_SECRET_KEYS
-    source $DOTPATH/aws/keys.private
+    source "$KEYPATH"
 fi
 
 aws_keys () {
