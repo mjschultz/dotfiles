@@ -5,6 +5,7 @@ prepend_path "$HOME/bin"
 append_path "/usr/local/sbin"
 append_path "/usr/sbin"
 append_path "/sbin"
+append_path "/usr/local/go/bin"
 
 export MANPATH=$HOME/man:$MANPATH
 export CDPATH=.:$HOME/Projects
