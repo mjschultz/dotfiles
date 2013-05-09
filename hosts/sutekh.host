@@ -4,11 +4,14 @@ alias rli72='ssh -fN onl-rli ; ( cd ~/Projects/research/utils/onl ; java -jar RL
 prepend_path /usr/local/bin
 prepend_path /Volumes/local/usr-local/bin
 prepend_path /Volumes/local/usr-local/sbin
+prepend_path $HOME/chromium/depot_tools
+prepend_path /usr/local/Cellar/ccache/3.1.9/libexec
 
 export MANPATH=/usr/local/share/man:$MANPATH
 
 # Some Homebrew settings
 export HOMEBREW_TEMP=/usr/local/tmp
+export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
 
 # Temporary fix to the 'sudo' problem at
 # https://discussions.apple.com/thread/4143805
