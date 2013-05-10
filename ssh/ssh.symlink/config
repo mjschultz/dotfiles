@@ -34,6 +34,6 @@ Host onl-rli
     ControlMaster yes
     ControlPath /tmp/onl-rli.sock
 
-Host *.obsrvbl.com
+Host *.obsrvbl.com *.amazonaws.com
     User ubuntu
     UserKnownHostsFile ~/.ssh/known_hosts2
