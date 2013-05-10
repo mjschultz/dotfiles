@@ -11,7 +11,8 @@ export MANPATH=/usr/local/share/man:$MANPATH
 
 # Some Homebrew settings
 export HOMEBREW_TEMP=/usr/local/tmp
-export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
+_PYTHONPATH=/usr/local/lib/python2.7/site-packages
+export PYTHONPATH=${_PYTHONPATH}${PYTHONPATH:+:$PYTHONPATH}
 
 # Temporary fix to the 'sudo' problem at
 # https://discussions.apple.com/thread/4143805

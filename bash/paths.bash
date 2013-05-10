@@ -10,4 +10,4 @@ append_path "/usr/local/go/bin"
 export MANPATH=$HOME/man:$MANPATH
 export CDPATH=.:$HOME/Projects
 export LD_LIBRARY_PATH=$HOME/lib:$LD_LIBRARY_PATH
-export PYTHONPATH=$HOME/lib/python/site-packages:$PYTHONPATH
+export PYTHONPATH=${PYTHONPATH:+$PYTHONPATH:}$HOME/lib/python/site-packages
