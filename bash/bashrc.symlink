@@ -10,11 +10,32 @@ export DOTPATH=$HOME/.dotfiles
 
 # Some utility functions
 function append_path {
-    [ -d $1 ] && PATH=$PATH:$1
+    VAR="PATH"
+    if [ ! -z "$2" ] ; then
+        VAR=$2
+    fi
+    if [ -d "$1" ] && [[ ":${!VAR}:" != *":$1:"* ]]; then
+        printf -v $VAR "${!VAR:+"${!VAR}:"}$1"
+    fi
 }
 
 function prepend_path {
-    [ -d $1 ] && PATH=$1:$PATH
+    VAR="PATH"
+    if [ ! -z "$2" ] ; then
+        VAR=$2
+    fi
+    if [ -d "$1" ] && [[ ":${!VAR}:" != *":$1:"* ]]; then
+        printf -v $VAR "$1${!VAR:+":${!VAR}"}"
+    fi
+}
+
+function clean_path {
+    VAR="PATH"
+    if [ ! -z "$1" ] ; then
+        VAR=$1
+    fi
+    VALUE=$(echo ${!VAR} | sed 's/^://' | sed 's/:$//')
+    printf -v $VAR $VALUE
 }
 
 function debug {
@@ -34,3 +55,7 @@ done
 for completion_file in $DOTPATH/*/*completion.sh ; do
     source $completion_file
 done
+
+# Make sure any useful PATHs don't have trailing values
+clean_path "PATH"
+clean_path "PYTHONPATH"
