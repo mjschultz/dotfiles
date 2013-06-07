@@ -3,8 +3,9 @@
     email = mjschultz@gmail.com
     signingkey = "BB7BCC6E"
 [alias]
-	lg = log --graph --decorate --pretty=oneline
-	lgs = log --graph --decorate --pretty=oneline --stat
+    df = diff --color --color-words --abbrev
+    lg = log --graph --decorate --oneline
+    lgs = log --graph --decorate --oneline --stat
 [color]
     diff = auto
     status = auto
