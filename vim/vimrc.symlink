@@ -1,5 +1,8 @@
 " .vimrc - settings for vimproved
 
+" Use tpope/vim-pathogen for bundle management
+execute pathogen#infect()
+
 " General Settings
 set nocompatible      " no vi defaults, use the more modern vim settings
 set enc=utf-8         " use utf-8 encoding, where available
@@ -46,6 +49,12 @@ au BufWrite /private/tmp/crontab.* set nowritebackup
 au BufWrite /private/etc/pw.* set nowritebackup
 " enable spell check by default on some filetypes
 au BufNewFile,BufRead *.txt,*.tex,*.html,svn-commit.tmp,*mutt* set spell
+
+" Make Makefile use full tabs
+autocmd FileType make setlocal noexpandtab
+
+" Python "compiler" pylint
+"autocmd FileType python compiler pylint
 
 " source cscope definitions 
 source ~/.vim/cscope.vim
