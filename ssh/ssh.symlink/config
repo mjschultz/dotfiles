@@ -6,6 +6,13 @@ Host mulug.mscs.mu.edu
 Host *.mscs.mu.edu
     User mschul
 
+# http://interrobeng.com/2013/08/25/speed-up-git-5x-to-50x/
+# Setup github connection persistence
+Host github.com
+    ControlMaster auto
+    ControlPath /tmp/%r@%h:%p
+    ControlPersist yes
+
 # Ignore host key changes for local virtual hosts
 Host 192.168.56.*
     UserKnownHostsFile /dev/null
