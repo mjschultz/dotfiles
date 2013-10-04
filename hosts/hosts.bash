@@ -15,5 +15,5 @@ fi
 HOSTNAME=${HOSTNAME/.*}
 
 DIR="$DOTPATH/hosts"
-[ -f "$DIR/$DOMAINNAME.domain" ] && source "$DIR/$DOMAINNAME.domain"
-[ -f "$DIR/$HOSTNAME.host" ] && source "$DIR/$HOSTNAME.host"
+[ -f "$DIR/$DOMAINNAME.domain" ] && source "$DIR/$DOMAINNAME.domain" && echo loaded $DOMAINNAME settings
+[ -f "$DIR/$HOSTNAME.host" ] && source "$DIR/$HOSTNAME.host" && echo loaded $HOSTNAME settings
