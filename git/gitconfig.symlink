@@ -16,3 +16,5 @@
     editor = vim
 [github]
     user = mjschultz
+[push]
+	default = simple
