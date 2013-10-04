@@ -24,7 +24,8 @@ function prepend_path {
     if [ ! -z "$2" ] ; then
         VAR=$2
     fi
-    if [ -d "$1" ] && [[ ":${!VAR}:" != *":$1:"* ]]; then
+    #if [ -d "$1" ] && [[ ":${!VAR}:" != *":$1:"* ]]; then
+    if [ -d "$1" ] ; then
         printf -v $VAR "$1${!VAR:+":${!VAR}"}"
     fi
 }
