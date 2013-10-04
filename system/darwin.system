@@ -1,0 +1,7 @@
+function set_nodump {
+    chflags -R -L nodump $*
+}
+
+function set_dump {
+    chflags -R -L nonodump $*
+}
