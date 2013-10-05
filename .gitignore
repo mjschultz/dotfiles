@@ -4,3 +4,4 @@ ssh/ssh.symlink/*
 *.swp
 *.private
 *history
+*.pyc
