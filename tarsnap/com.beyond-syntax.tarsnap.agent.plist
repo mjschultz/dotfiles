@@ -7,9 +7,13 @@
         <key>ProgramArguments</key>
         <array>
             <string>/Users/mjschultz/.dotfiles/tarsnap/tarsnap-wrapper.sh</string>
+            <string>/Users/mjschultz</string>
         </array>
-        <key>StartInterval</key>
-        <integer>3600</integer>
+        <key>StartCalendarInterval</key>
+        <dict>
+            <key>Minute</key>
+            <integer>40</integer>
+        </dict>
         <key>StandardOutPath</key>
         <string>/Users/mjschultz/Library/Logs/tarsnap.log</string>
         <key>StandardErrorPath</key>

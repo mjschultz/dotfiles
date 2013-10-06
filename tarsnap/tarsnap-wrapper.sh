@@ -1,7 +1,26 @@
 #!/bin/bash -ex
 
-SOURCE=/Users/mjschultz
 TARSNAP=/usr/local/bin/tarsnap
-DATE=$(date +%FT%T%z)
+NOTIFIER=/usr/local/bin/terminal-notifier
 
-$TARSNAP -c -f snapshot-$DATE $SOURCE
+DATE=$(date +%FT%T%z)
+SNAPSHOT=snapshot-$DATE
+
+start_time=$(date +%s)
+$TARSNAP -c -f $SNAPSHOT $*
+status=$?
+end_time=$(date +%s)
+delta=$(($end_time - $start_time))
+
+if [ -x $NOTIFIER ] ; then
+    title="tarsnap"
+    subtitle="$SNAPSHOT"
+    if [ $status -eq 0 ] ; then
+        message="succeeded in $delta seconds"
+    else
+        message="backup failed (status: $status)"
+    fi
+    $NOTIFIER -title "$title" \
+              -subtitle "$subtitle" \
+              -message "$message"
+fi
