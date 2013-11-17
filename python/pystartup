@@ -10,17 +10,19 @@ import os
 import readline
 import rlcompleter
 
-try :
+try:
     hist_path = os.environ['PYTHONHISTORY']
-except :
+except:
     hist_path = os.path.expanduser("~/.pyhistory")
 
 def save_history(hist_path=hist_path):
     import readline
     readline.write_history_file(hist_path)
 
-if os.path.exists(hist_path):
+try:
     readline.read_history_file(hist_path)
+except IOError:
+    pass
 
 readline.parse_and_bind('tab: complete')
 

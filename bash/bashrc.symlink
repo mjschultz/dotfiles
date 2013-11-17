@@ -59,6 +59,9 @@ for completion_file in $DOTPATH/*/*completion.sh ; do
     source $completion_file
 done
 
+# Make sure personal directory is first on the PATH
+prepend_path $HOME/bin
+
 # Make sure any useful PATHs don't have trailing values
 clean_path "PATH"
 clean_path "PYTHONPATH"
