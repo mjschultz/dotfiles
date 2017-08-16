@@ -5,3 +5,5 @@ function set_nodump {
 function set_dump {
     chflags -R -L nonodump $*
 }
+
+ulimit -n 1024

@@ -1,11 +1,12 @@
 [user]
     name = Michael J. Schultz
     email = mjschultz@gmail.com
-    signingkey = "BB7BCC6E"
+	signingkey = C7C9F90E
 [alias]
     df = diff --color --color-words --abbrev
     lg = log --graph --decorate --oneline
     lgs = log --graph --decorate --oneline --stat
+    pr = merge --no-ff
 [color]
     diff = auto
     status = auto
@@ -18,3 +19,29 @@
     user = mjschultz
 [push]
 	default = simple
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
+[filter "lfs"]
+	clean = git lfs clean %f
+	smudge = git lfs smudge %f
+    required = true
+[difftool "kdiff3"]
+    path = /usr/local/bin/kdiff3
+    trustExitCode = false
+[difftool]
+    prompt = false
+[diff]
+    tool = kdiff3
+[mergetool "kdiff3"]
+    path = /usr/local/bin/kdiff3
+    trustExitCode = false
+[mergetool]
+    keepBackup = false
+[merge]
+    tool = kdiff3
+[commit]
+	gpgsign = true
+[credential]
+	helper = !aws codecommit credential-helper $@
+	UseHttpPath = true
