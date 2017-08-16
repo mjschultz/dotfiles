@@ -1,7 +1,24 @@
 " .vimrc - settings for vimproved
 
+" Enable filetype detection
+filetype plugin indent on
+autocmd BufNewFile,BufRead *.py set ft=python
+
 " Use tpope/vim-pathogen for bundle management
 execute pathogen#infect()
+
+" syntastic settings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_full_redraws = 1
+
+let g:syntastic_python_checkers = ['python', 'flake8', 'pep257', 'py3kwarn']
+
 
 " General Settings
 set nocompatible      " no vi defaults, use the more modern vim settings
@@ -10,7 +27,7 @@ set smartcase         " ignore case if search term is all lower-case
 set backspace=2       " more powerful backspacing
 
 " Display Settings
-set tw=75             " set textwidth = 75 columns
+set tw=78             " set textwidth = 75 columns
 set linebreak         " don't break in the middle of words
 set display+=lastline " show paragraphs, even if they go off screen
 set fo+=r             " insert comment leader on enter
@@ -31,9 +48,8 @@ set modeline          " parse file specific modeline settings
 
 set autoindent        " automatically indent to level of previous line
 set cindent           " uses some brains to change indent level
+set nofoldenable      " disable folding
 
-" Enable filetype detection
-filetype plugin indent on
 
 " Return cursor to previous position when file opened
 au BufReadPost *
@@ -53,25 +69,13 @@ au BufNewFile,BufRead *.txt,*.tex,*.html,svn-commit.tmp,*mutt* set spell
 " Make Makefile use full tabs
 autocmd FileType make setlocal noexpandtab
 
-" Python "compiler" pylint
-"autocmd FileType python compiler pylint
-
 " source cscope definitions 
-source ~/.vim/cscope.vim
+" source ~/.vim/cscope.vim
 
 " set a default color scheme
 colorscheme koehler
 
 " some mappings
-" make current line an h4
-map h4 :s/^[A-z0-9"].*$/<h4>&<\/h4>/g<CR>
-
-" wrap everything in paragraph tags
-map p :%s/^[A-z0-9"].*$/<p>&<\/p>/g<CR>
-
-" toggle hidden chars
-map <silent> <F2> :set invlist<CR>
-imap <silent> <F2> <C-O>:set invlist<CR>
 
 " toggle search highlighting
 map <silent> <F3> :set invhlsearch<CR>
